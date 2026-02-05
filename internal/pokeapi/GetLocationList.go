@@ -8,6 +8,14 @@ import (
 
 func (c *Client) GetLocationList(url string) (LocationArea, error) {
 
+	if val, ok := c.cache.Get(url); ok {
+		var locationArea LocationArea
+		if err := json.Unmarshal(val, &locationArea); err != nil {
+			return LocationArea{}, err
+		}
+		return locationArea, nil
+	}
+
 	req, err := http.NewRequest("GET", url, nil)
 	if err != nil {
 		return LocationArea{}, err
@@ -23,6 +31,7 @@ func (c *Client) GetLocationList(url string) (LocationArea, error) {
 	if err != nil {
 		return LocationArea{}, err
 	}
+	c.cache.Add(url, body)
 
 	var locationArea LocationArea
 	if err := json.Unmarshal(body, &locationArea); err != nil {
