@@ -7,17 +7,15 @@ import (
 )
 
 type config struct {
-	pokeapiClient    pokeapi.Client
-	nextLocationsURL string
-	prevLocationsURL string
+	pokeapiClient    *pokeapi.Client
+	nextLocationsURL *string
+	prevLocationsURL *string
 }
 
 func main() {
 	client := pokeapi.NewClient(time.Second*5, time.Minute*5)
 	cfg := &config{
-		pokeapiClient:    *client,
-		nextLocationsURL: "https://pokeapi.co/api/v2/location-area/",
-		prevLocationsURL: "",
+		pokeapiClient: client,
 	}
 	repl(cfg)
 }

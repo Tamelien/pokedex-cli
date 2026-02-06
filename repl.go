@@ -20,6 +20,10 @@ func repl(cfg *config) {
 		}
 
 		commandName := input[0]
+		location := ""
+		if len(input) > 1 {
+			location = input[1]
+		}
 
 		command, ok := getCommand()[commandName]
 		if !ok {
@@ -27,7 +31,7 @@ func repl(cfg *config) {
 			continue
 		}
 
-		err := command.callback(cfg)
+		err := command.callback(cfg, location)
 		if err != nil {
 			fmt.Println(err)
 		}

@@ -6,7 +6,13 @@ import (
 	"net/http"
 )
 
-func (c *Client) GetLocationList(url string) (LocationArea, error) {
+func (c *Client) GetLocationList(pageUrl *string) (LocationArea, error) {
+
+	url := c.baseURL + "/location-area"
+
+	if pageUrl != nil {
+		url = *pageUrl
+	}
 
 	if val, ok := c.cache.Get(url); ok {
 		var locationArea LocationArea

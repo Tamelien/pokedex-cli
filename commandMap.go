@@ -4,15 +4,9 @@ import (
 	"fmt"
 )
 
-func commandMap(cfg *config) error {
+func commandMap(cfg *config, args ...string) error {
 
-	url := cfg.nextLocationsURL
-	if url == "" {
-		fmt.Println("No location pages available.")
-		return nil
-	}
-
-	locationArea, err := cfg.pokeapiClient.GetLocationList(url)
+	locationArea, err := cfg.pokeapiClient.GetLocationList(cfg.nextLocationsURL)
 	if err != nil {
 		return err
 	}
@@ -27,15 +21,15 @@ func commandMap(cfg *config) error {
 	return nil
 }
 
-func commandMapb(cfg *config) error {
+func commandMapb(cfg *config, args ...string) error {
 
 	url := cfg.prevLocationsURL
-	if url == "" {
+	if url == nil {
 		fmt.Println("you're on the first page")
 		return nil
 	}
 
-	locationArea, err := cfg.pokeapiClient.GetLocationList(url)
+	locationArea, err := cfg.pokeapiClient.GetLocationList(cfg.prevLocationsURL)
 	if err != nil {
 		return err
 	}
