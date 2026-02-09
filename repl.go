@@ -20,9 +20,9 @@ func repl(cfg *config) {
 		}
 
 		commandName := input[0]
-		location := ""
+		arg := ""
 		if len(input) > 1 {
-			location = input[1]
+			arg = input[1]
 		}
 
 		command, ok := getCommand()[commandName]
@@ -31,14 +31,14 @@ func repl(cfg *config) {
 			continue
 		}
 
-		err := command.callback(cfg, location)
+		err := command.callback(cfg, arg)
 		if err != nil {
 			fmt.Println(err)
 		}
 	}
 }
 
-func cleanInput(text string) []string {
-	text_lower := strings.ToLower(text)
+func cleanInput(raw string) []string {
+	text_lower := strings.ToLower(raw)
 	return strings.Fields(text_lower)
 }

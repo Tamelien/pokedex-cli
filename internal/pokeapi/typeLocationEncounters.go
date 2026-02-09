@@ -9,5 +9,6 @@ type PokemonEncounter struct {
 }
 
 type Pokemon struct {
-	Name string `json:"name"`
+	Name           string `json:"name"`
+	BaseExperience int    `json:"base_experience"`
 }
