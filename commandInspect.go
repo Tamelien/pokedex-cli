@@ -4,6 +4,10 @@ import "fmt"
 
 func commandInspect(cfg *config, args ...string) error {
 
+	if len(args) == 0 {
+		return fmt.Errorf("No pokemon to inspect")
+	}
+
 	pokemon, ok := cfg.caughtPokemon[args[0]]
 	if !ok {
 		fmt.Println("you have not caught that pokemon")
